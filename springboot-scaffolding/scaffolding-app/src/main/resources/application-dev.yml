@@ -1,0 +1,34 @@
+server:
+  port: 8881
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 2048MB
+      max-request-size: 2048MB
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:postgresql://127.0.0.1:5432/scaffolding?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: vssp
+    password: VsspDev*369
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+    encoding: UTF-8
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+logging:
+  level:
+    org.noahsark: DEBUG
+  file:
+    name: logs/scaffolding.log
+    max-history: 180
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false
