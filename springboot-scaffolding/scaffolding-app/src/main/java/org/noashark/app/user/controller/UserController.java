@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("")
     @ApiOperation("添加用户")
     @Transactional
-    public Response<UserDTO> add(@RequestBody @Validated UserReq req) {
+    public Response<UserDTO> add(@RequestBody @Validated UserDTO userDTO) {
 
         return Response.ok(null);
     }

@@ -32,7 +32,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-/logs/
+/scaffolding-app/logs/
 .idea
 
 ### VS Code ###
