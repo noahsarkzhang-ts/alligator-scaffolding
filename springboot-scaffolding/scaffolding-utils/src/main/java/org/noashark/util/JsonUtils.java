@@ -2,7 +2,7 @@ package org.noashark.util;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import org.noashark.common.evebt.BeanModifiedEvent;
+import org.noashark.common.event.BeanModifiedEvent;
 import org.noashark.common.pojo.Response;
 import org.noashark.common.pojo.vo.PageVO;
 

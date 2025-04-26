@@ -1,0 +1,90 @@
+package ${package.Controller};
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import ${package.Entity}.${entity};
+import ${package.Parent}.pojo.dto.${entity}DTO;
+import ${package.Parent}.pojo.vo.${entity}VO;
+import ${package.Service}.${table.serviceName};
+import ${package.Parent}.pojo.mapstruct.${entity}Mapstruct;
+
+import org.noashark.common.pojo.Response;
+import org.noashark.common.pojo.dto.PageDTO;
+import org.noashark.common.pojo.vo.PageVO;
+import ${package.Parent}.pojo.query.${entity}Query;
+
+#if($!{table.comment} != '')
+#set($table.comment = $table.comment.replace("表", ""))
+#end
+
+/**
+ * <p>
+ *  $!{table.comment}前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Api(tags = "$!{table.comment}管理")
+@RestController
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+public class ${table.controllerName} {
+
+    @Autowired
+    private ${table.serviceName} ${table.entityPath}Service;
+
+    @PostMapping("")
+    @ApiOperation("添加$!{table.comment}")
+    public Response<${entity}VO> add(@RequestBody @Validated ${entity}DTO ${table.entityPath}DTO) {
+        ${entity} ${table.entityPath}PO = ${entity}Mapstruct.INSTANCE.toPO(${table.entityPath}DTO);
+
+        ${table.entityPath}Service.save(${table.entityPath}PO);
+        ${entity}VO vo = ${entity}Mapstruct.INSTANCE.toVO(${table.entityPath}PO);
+        return Response.ok(vo);
+    }
+
+    @DeleteMapping("/del/{id}")
+    @ApiOperation("根据ID删除$!{table.comment}")
+    public Response delete(@PathVariable Long id) {
+        ${table.entityPath}Service.removeById(id);
+        return Response.ok(id);
+    }
+
+    @PostMapping("/batch-del")
+    @ApiOperation("根据ID批量删除")
+    public Response deleteBatch(@RequestBody List<Long> ids) {
+
+        return Response.ok(${table.entityPath}Service.removeBatchByIds(ids));
+    }
+
+    @PostMapping("/modify")
+    @ApiOperation("根据ID修改$!{table.comment}")
+    public Response<${entity}VO> modify(@RequestBody @Validated ${entity}DTO ${table.entityPath}) {
+        ${entity} ${table.entityPath}PO = ${entity}Mapstruct.INSTANCE.toPO(${table.entityPath});
+        ${table.entityPath}PO.setUpdatedAt(LocalDateTime.now());
+        ${table.entityPath}Service.updateById(${table.entityPath}PO);
+        ${entity}VO vo = ${entity}Mapstruct.INSTANCE.toVO(${table.entityPath}PO);
+        return Response.ok(vo);
+    }
+
+    @GetMapping("/get/{id}")
+    @ApiOperation("根据ID查询$!{table.comment}")
+    public Response<${entity}VO> getById(@PathVariable Long id) {
+        ${entity} po = ${table.entityPath}Service.getById(id);
+        ${entity}VO vo = ${entity}Mapstruct.INSTANCE.toVO(po);
+        return Response.ok(vo);
+    }
+
+    @PostMapping("/list")
+    @ApiOperation("分页查询$!{table.comment}列表")
+    public Response<PageVO<${entity}VO>> list(@RequestBody @Validated PageDTO<${entity}Query> pageDTO) {
+        PageVO<${entity}VO> pageVO = ${table.entityPath}Service.voList(pageDTO);
+        return Response.ok(pageVO);
+    }
+}

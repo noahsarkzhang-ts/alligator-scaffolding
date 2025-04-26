@@ -1,0 +1,26 @@
+package ${package.Service};
+
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+import org.noashark.common.pojo.dto.PageDTO;
+import org.noashark.common.pojo.vo.PageVO;
+import ${package.Parent}.pojo.query.${entity}Query;
+import ${package.Parent}.pojo.vo.${entity}VO;
+
+#if($!{table.comment} != '')
+#set($table.comment = $table.comment.replace("表", ""))
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+
+    PageVO<${entity}VO> voList(PageDTO<${entity}Query> pageDTO);
+}

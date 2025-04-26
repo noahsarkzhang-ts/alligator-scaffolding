@@ -24,6 +24,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <app.server.version>1.0</app.server.version>
         <mybatis.plus.version>3.5.3.1</mybatis.plus.version>
+        <velocity.version>2.3</velocity.version>
         <spring.boot.version>2.2.13.RELEASE</spring.boot.version>
         <lombok.version>1.18.24</lombok.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
@@ -180,6 +181,12 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
                 <version>${mybatis.plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
             </dependency>
 
             <dependency>

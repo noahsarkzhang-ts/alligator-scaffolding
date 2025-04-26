@@ -1,4 +1,4 @@
-package org.noashark.app.cofig;
+package org.noashark.app.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

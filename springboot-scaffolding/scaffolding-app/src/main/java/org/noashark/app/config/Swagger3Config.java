@@ -1,4 +1,4 @@
-package org.noashark.app.cofig;
+package org.noashark.app.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;

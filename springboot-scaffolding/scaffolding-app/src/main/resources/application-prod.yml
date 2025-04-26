@@ -1,34 +1,5 @@
 server:
-  port: 18053
-
-vssp:
-  jwt:
-    secret: Aiujd86Bc99
-    expires-days: 7
-  rd:
-    secret: Bjwkd86Bc98
-    expires-days: 7
-    product-id: ZVAH_EMH30_01
-    model-id: EMH30
-  user:
-    customer:
-      logo-path: E:\\vssp\\user\\costomer # 客户定制logo存放路径
-  device:
-    model:
-      icon-path: E:\\vssp\\device\\icon  # 设备型号图标存放路径
-    posi:
-      lbs-url: https://restapi.amap.com/v3/geocode/regeo?key={key}&output={output}&location={location}
-      lbs-key: 986c951baa5267458694449cbc01bfb9
-    gps:
-      query-distance: 20 # GPS 过滤的距离，单位为米
-    auth: true  # 是否验证客户端 token
-  version:
-    lower-proto-ver: 1.0
-    server-proto-ver: 1.0.1
-    app:
-      file-path: E:\\vssp\\version\\file  # 安装包存放路径
-  license:
-    file-path: E:\vssp\license
+  port: 8881
 
 spring:
   servlet:
@@ -37,9 +8,9 @@ spring:
       max-request-size: 2048MB
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:postgresql://127.0.0.1:5432/vssp?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    url: jdbc:postgresql://127.0.0.1:5432/scaffolding?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: postgres
-    password: root
+    password: postgres
   # 资源信息
   messages:
     # 国际化资源文件路径
@@ -51,120 +22,13 @@ spring:
       enabled: true
       force: true
 
-# ws网关配置
-gw:
-  common:
-    enable: true  # 是否开启，默认不开启
-    serverId: ws-gw1
-    mqTopic: zasafe.gw.ws-gw1
-    workQueue:
-      maxQueueNum: 1000
-      maxThreadNum: 8
-      responseThreadNum: 8
-    serverConfig:
-      host: 0.0.0.0 # ws服务器地址,本机地址
-      port: 9090   # ws 端口
-      wsAddress: wss://192.168.3.108:9090/websocket
-      sslConfig:
-        enable: false
-        keystoreFile: /home/zasafe.com.pfx
-        keystorePwd: 37GYWH2b
-
-# 统一通信配置
-uc:
-  iot:
-    url: http://124.71.211.247:18010/  # iot地址
-    username: tenant@thingsboard.org
-    password: VsspDev*369
-    defaultRuleChain: de9a3f70-1d73-11ef-82e7-9135bd6d073c
-    defaultDeviceProfile: 45357e00-286b-11ef-a921-33a8fd2de73d
-    server:
-      host: 124.71.211.247  # 客户端访问的外网地址
-      mqtt-port: 18002 # 客户端访问的 mqtt 端口
-  wvp:
-    url: http://124.71.211.247:18020/
-    username: admin
-    password: DevTest@258
-  ftp:
-    url: ftp://124.71.211.247:18020
-    username: admin
-    password: DevTest@258
-
-# nats 配置
-nats:
-  enable: true # 是否开启，默认不开启
-  servers: nats://192.168.56.107:4222
-
-# topic 配置，zlm回调会发送到 mq
-mq:
-  topic:
-    play: zasafe.zlm.play
-    publish: zasafe.zlm.publish
-    streamChanged: zasafe.zlm.stream-changed
-    streamNoneReader: zasafe.zlm.stream-none-reader
-    mediaServerStarted: zasafe.zlm.media-server-started
-    rpc: zasafe.rpc.vssp
-    omp-rpc: zasafe.rpc.vssp-omp
-    userOnline: zasafe.user.online
-    iot:
-      telemetry: zasafe.iot.telemetry
-      clientAttr: zasafe.iot.clientAttr
-    arrivedMsg: zasafe.msg.arrived
-
-# zlm 配置
-zlm:
-  push-schema: webrtc
-  media-server-push-address: 192.168.56.107   # zlm 媒体服务器地址
-  #api-url: http://127.0.0.1:18030  # zlm api 地址，包括端口
-  #api-secret: A973A49F-392D-4529-A873-D6231F760DCC  # api 密钥
-  api-url: http://192.168.56.107  # zlm api 地址，包括端口
-  api-secret: oEILn6WLp6uaghxmVfzRhb8mqyk8MRn9  # api 密钥
-  hook-host: 192.168.3.108  # 本地hook 主机,一般为 127.0.0.1
-
-# msg 线程池配置
-msg:
-  orkQueue:
-    maxQueueNum: 10000
-    maxThreadNum: 20
-
 logging:
   level:
-    com.zasafe: DEBUG
+    org.noahsark: DEBUG
   file:
-    name: E:\02_project-log\vssp-omp\vssp-omp.log
+    name: logs/scaffolding.log
     max-history: 180
 
 mybatis-plus:
   configuration:
     cache-enabled: false
-
-# 低端安全帽网关配置
-rdgw:
-  common:
-    enable: true  # 是否开启，默认不开启
-    serverId: rd-gw1
-    mqTopic: zasafe.rdgw.ws-gw1
-    modelId: EMH30
-    workQueue:
-      maxQueueNum: 1000
-      maxThreadNum: 8
-      responseThreadNum: 8
-    serverConfig:
-      host: 0.0.0.0 # ws服务器地址,本机地址
-      port: 9091   # ws 端口
-      wsAddress: wss://192.168.3.108:9091/websocket  # 服务器对外地址
-      sslConfig:
-        enable: false
-        keystoreFile: /home/zasafe.com.pfx
-        keystorePwd: 37GYWH2b
-    securityConfig:
-      secret: Bjwkd86Bc98
-      expiresDays: 7
-    rsServerConfig:
-      url: http://127.0.0.1:18051/  # omp http地址
-    cmpServerConfig:
-      url: http://127.0.0.1:18052/  # cmp 地址
-      extUrl: https://cmp.testv.zasafe.com:18050/api/cmp/  # cmp 外部访问地址（nginx地址）
-    ffmpegConfig:
-      avDir: d:/app/video/ # 音视频临时目录，用于存储转换的音频文件
-      exePath: D:/app/ffmpeg-shared/bin/ffmpeg # ffmpeg 执行文件，全路径

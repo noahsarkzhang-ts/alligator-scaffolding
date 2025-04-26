@@ -1,0 +1,21 @@
+package ${package.Parent}.pojo.mapstruct;
+
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+import ${package.Entity}.${entity};
+import ${package.Parent}.pojo.dto.${entity}DTO;
+import ${package.Parent}.pojo.vo.${entity}VO;
+
+#if($!{table.comment} != '')
+#set($table.comment = $table.comment.replace("表", ""))
+#end
+
+@Mapper(componentModel = "spring")
+public interface ${entity}Mapstruct {
+    ${entity}Mapstruct INSTANCE = Mappers.getMapper(${entity}Mapstruct.class);
+
+    ${entity} toPO(${entity}DTO ${table.entityPath}DTO);
+
+    ${entity}VO toVO(${entity} ${table.entityPath});
+}

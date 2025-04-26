@@ -1,0 +1,54 @@
+package ${package.ServiceImpl};
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.noashark.common.pojo.dto.PageDTO;
+import org.noashark.common.pojo.vo.PageVO;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Objects;
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Parent}.pojo.query.${entity}Query;
+import ${package.Service}.${table.serviceName};
+import ${package.Parent}.pojo.vo.${entity}VO;
+import ${package.Parent}.pojo.mapstruct.${entity}Mapstruct;
+
+#if($!{table.comment} != '')
+#set($table.comment = $table.comment.replace("表", ""))
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}>#if(${table.serviceInterface}) implements ${table.serviceName}#end {
+
+    public PageVO<${entity}VO> voList(PageDTO<${entity}Query> pageDTO) {
+        LambdaQueryWrapper<${entity}> wrapper = new LambdaQueryWrapper<>();
+        ${entity}Query query = pageDTO.getQuery();
+        if (!Objects.isNull(query)) {
+            // wrapper.eq(SysUser::getUsername, query.getUsername());
+        }
+        wrapper.orderByDesc(${entity}::getCreatedAt);
+        IPage<${entity}> page = baseMapper.selectPage(Page.of(pageDTO.getCurPage(), pageDTO.getPageSize()), wrapper);
+        PageVO<${entity}VO> pageVO = new PageVO<>();
+        pageVO.setCurrent(pageDTO.getCurPage());
+        pageVO.setRecords(toVoList(page.getRecords()));
+        pageVO.setTotalRows(page.getTotal());
+        return pageVO;
+    }
+
+    private List<${entity}VO> toVoList(List<${entity}> poList) {
+        return poList.stream().map(${table.entityPath} -> ${entity}Mapstruct.INSTANCE.toVO(${table.entityPath})).collect(Collectors.toList());
+    }
+}

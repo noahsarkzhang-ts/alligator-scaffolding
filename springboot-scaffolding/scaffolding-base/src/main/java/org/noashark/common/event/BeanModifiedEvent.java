@@ -1,4 +1,4 @@
-package org.noashark.common.evebt;
+package org.noashark.common.event;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

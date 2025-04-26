@@ -47,7 +47,7 @@ public class UserController {
         return Response.ok(null);
     }
 
-    @PutMapping("/modify")
+    @PatchMapping("/modify")
     @ApiOperation("根据ID修改用户")
     public Response<Void> modify(@RequestBody @Validated UserReq req) {
         return Response.ok(null);
