@@ -1,0 +1,53 @@
+# ws网关配置
+gw:
+  jwt:
+    secret: Aiujd86Bc99
+    expires-days: 7
+  common:
+    enable: true  # 是否开启，默认不开启
+    serverId: ws-gw1-local
+    mqTopic: gw.ws-gw1
+    workQueue:
+      maxQueueNum: 1000
+      maxThreadNum: 8
+      responseThreadNum: 8
+    serverConfig:
+      host: 0.0.0.0 # ws服务器地址,本机地址
+      port: 9090   # ws 端口
+      wsAddress: wss://192.168.3.108:9090/websocket
+      sslConfig:
+        enable: false
+        keystoreFile: /home/zasafe.com.pfx
+        keystorePwd: 37GYWH2b
+
+# nats 配置
+nats:
+  enable: true # 是否开启，默认不开启
+  servers: nats://@192.168.3.108:4222
+
+# datasource 配置
+spring:
+  datasource:
+    #type: com.alibaba.druid.pool.DruidDataSource
+    #url: jdbc:postgresql://124.71.211.247:18059/vssp?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:postgresql://127.0.0.1:5432/rpc_scaffolding?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: vssp
+    password: VsspDev*369
+
+# topic 配置，
+mq:
+  topic:
+    userOnline: gw.user.online
+    rpc: gw.rpc
+
+logging:
+  level:
+    org.noahsark: DEBUG
+  file:
+    name: socket-rpc.log
+    max-history: 180
+
+mybatis-plus:
+  configuration:
+    cache-enabled: false

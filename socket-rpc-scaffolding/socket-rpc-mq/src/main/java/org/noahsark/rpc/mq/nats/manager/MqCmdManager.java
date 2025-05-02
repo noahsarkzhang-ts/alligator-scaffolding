@@ -58,7 +58,7 @@ public class MqCmdManager {
 
             MqMultiRequest msg = buildMultiRequest(users, cmd, RpcCommand.REQUEST, data, topic, repliedTopic);
 
-            NatsmqProxy proxy = NatsmqProxyHolder.vsspMqProxy;
+            NatsmqProxy proxy = NatsmqProxyHolder.natsMqProxy;
 
             log.info("Send a multi request:{}/{}", cmd, JsonUtils.toJson(msg));
             Object response = proxy.sendSync(msg, MqCommonConstants.RPC_TIMEOUT_MILLIS);
@@ -115,7 +115,7 @@ public class MqCmdManager {
 
             MqMultiRequest msg = buildMultiRequest(userList, cmd, RpcCommand.ONEWAY, data, topic, repliedTopic);
 
-            NatsmqProxy proxy = NatsmqProxyHolder.vsspMqProxy;
+            NatsmqProxy proxy = NatsmqProxyHolder.natsMqProxy;
 
             log.info("Send a multi one-way request:{}/{}", cmd, JsonUtils.toJson(msg));
 
@@ -151,7 +151,7 @@ public class MqCmdManager {
 
             MqMultiRequest msg = buildMultiRequest(users, cmd, RpcCommand.ONEWAY, data, topic, repliedTopic);
 
-            NatsmqProxy proxy = NatsmqProxyHolder.vsspMqProxy;
+            NatsmqProxy proxy = NatsmqProxyHolder.natsMqProxy;
 
             log.info("Send a one-way request:{}/{}", cmd, data);
             proxy.sendOneway(msg);
@@ -187,7 +187,7 @@ public class MqCmdManager {
 
             MqMultiRequest msg = buildMultiRequest(users, cmd, RpcCommand.REQUEST, data, topic, repliedTopic);
 
-            NatsmqProxy proxy = NatsmqProxyHolder.vsspMqProxy;
+            NatsmqProxy proxy = NatsmqProxyHolder.natsMqProxy;
 
             log.info("Send a request:{}/{}", cmd, data);
             Object response = proxy.sendSync(msg, MqCommonConstants.RPC_TIMEOUT_MILLIS);

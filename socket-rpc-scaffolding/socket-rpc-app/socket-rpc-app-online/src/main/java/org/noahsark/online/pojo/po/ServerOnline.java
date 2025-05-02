@@ -20,7 +20,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("omp_server_online")
+@TableName("t_server_online")
 public class ServerOnline implements Serializable {
 
     private static final long serialVersionUID = 1L;

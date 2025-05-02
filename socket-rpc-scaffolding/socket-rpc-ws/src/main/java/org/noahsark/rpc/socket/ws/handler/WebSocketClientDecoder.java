@@ -42,6 +42,7 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.websocketx.*;
 import io.netty.util.CharsetUtil;
 import io.netty.util.internal.StringUtil;
+import org.noahsark.rpc.common.remote.Request;
 import org.noahsark.rpc.common.remote.Response;
 import org.noahsark.rpc.common.remote.RpcCommand;
 import org.noahsark.rpc.socket.remote.RemotingClient;
@@ -123,6 +124,8 @@ public class WebSocketClientDecoder extends SimpleChannelInboundHandler<Object> 
 
             if (command.getType() == RpcCommand.RESPONSE) {
                 command = Response.marshalFromJson(response, command);
+            } else {
+                command = Request.build(command);
             }
 
             ctx.fireChannelRead(command);

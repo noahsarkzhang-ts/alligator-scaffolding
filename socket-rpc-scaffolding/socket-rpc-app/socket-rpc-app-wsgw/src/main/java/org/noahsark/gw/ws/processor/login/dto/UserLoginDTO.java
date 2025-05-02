@@ -29,10 +29,6 @@ public class UserLoginDTO implements Serializable {
      */
     private String token;
 
-    /**
-     * 是否具有SOS呼叫权限
-     */
-    private Boolean hasSosPerm;
 
     /**
      * 会话id
@@ -69,14 +65,6 @@ public class UserLoginDTO implements Serializable {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public Boolean getHasSosPerm() {
-        return hasSosPerm;
-    }
-
-    public void setHasSosPerm(Boolean hasSosPerm) {
-        this.hasSosPerm = hasSosPerm;
     }
 
     public String getSessionId() {

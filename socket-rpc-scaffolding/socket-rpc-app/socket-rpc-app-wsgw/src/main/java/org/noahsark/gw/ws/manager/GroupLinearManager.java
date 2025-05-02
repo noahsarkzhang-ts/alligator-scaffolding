@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author: zhangxt
- * @desc:
+ * @desc: 线性处理器
  * @version:
  * @date: 2021/7/21
  */
@@ -136,7 +136,7 @@ public class GroupLinearManager {
             if (this.queue.size() <= DEFAULT_MAX_QUEUE_NUM) {
                 this.queue.add(task);
             } else {
-                log.warn("Because request size[{}] enough, so drop this request {}", this.queue.size());
+                log.warn("Because request size[{}] was not enough, so drop this request {}", this.queue.size());
             }
         }
 

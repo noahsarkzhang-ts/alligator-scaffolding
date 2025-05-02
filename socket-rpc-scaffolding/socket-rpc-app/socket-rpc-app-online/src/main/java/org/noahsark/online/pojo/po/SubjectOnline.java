@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("omp_subject_online")
+@TableName("t_subject_online")
 public class SubjectOnline implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -75,8 +75,4 @@ public class SubjectOnline implements Serializable {
      */
     private LocalDateTime loginTime;
 
-    /**
-     * 是否有SOS呼叫权限，0：没有，1：有
-     */
-    private Short sosPerm;
 }

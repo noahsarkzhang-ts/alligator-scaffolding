@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("omp_subject_login_event")
+@TableName("t_subject_login_event")
 public class SubjectLoginEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;

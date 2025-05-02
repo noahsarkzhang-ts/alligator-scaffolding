@@ -18,6 +18,7 @@
         <module>socket-rpc-app-wsgw</module>
         <module>socket-rpc-app-online</module>
         <module>socket-rpc-app-nats</module>
+        <module>socket-rpc-app-user</module>
 
     </modules>
 

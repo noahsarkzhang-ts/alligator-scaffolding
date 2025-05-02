@@ -7,6 +7,6 @@ package org.noahsark.rpc.mq.nats;
  **/
 public class NatsmqProxyHolder {
 
-    public static NatsmqProxy vsspMqProxy;
+    public static NatsmqProxy natsMqProxy;
 
 }

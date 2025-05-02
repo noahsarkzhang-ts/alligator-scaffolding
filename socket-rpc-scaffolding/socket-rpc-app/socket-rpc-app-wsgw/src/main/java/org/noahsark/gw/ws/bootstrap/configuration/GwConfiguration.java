@@ -15,19 +15,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GwConfiguration {
 
-    @Value("${vssp.jwt.secret}")
+    @Value("${gw.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${vssp.jwt.expires-days}")
+    @Value("${gw.jwt.expires-days}")
     private int jwtExpiresDays;
 
     @Value("${mq.topic.userOnline}")
     private String userOnlineTopic;
-
-    @Value("${mq.topic.arrivedMsg}")
-    private String arrivedMsgTopic;
-
-    @Value("${vssp.device.auth:true}")
-    private Boolean deviceAuth;
 
 }

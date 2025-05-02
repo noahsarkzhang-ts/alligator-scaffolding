@@ -2,7 +2,7 @@ package org.noahsark.rpc.common.remote;
 
 /**
  * @author: zhangxt
- * @desc: promis容器类
+ * @desc: promise容器类
  * @version:
  * @date: 2021/7/21
  */

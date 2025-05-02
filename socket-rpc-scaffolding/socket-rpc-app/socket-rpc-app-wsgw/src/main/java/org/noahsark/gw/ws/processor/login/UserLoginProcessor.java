@@ -8,6 +8,8 @@ import org.noahsark.common.exception.CommonException;
 import org.noahsark.gw.ws.bootstrap.manager.OnlineManger;
 import org.noahsark.gw.ws.bootstrap.subject.UserSubject;
 import org.noahsark.gw.ws.processor.login.dto.UserLoginDTO;
+import org.noahsark.gw.ws.service.IUserLoginService;
+import org.noahsark.gw.ws.service.IUserLogoutService;
 import org.noahsark.online.pojo.po.SubjectOnline;
 import org.noahsark.rpc.common.dispatcher.AbstractProcessor;
 import org.noahsark.rpc.common.remote.Response;
@@ -35,6 +37,13 @@ import java.util.Map;
 public class UserLoginProcessor extends AbstractProcessor<UserLoginDTO> {
 
     private static Logger log = LoggerFactory.getLogger(UserLoginProcessor.class);
+
+    @Autowired
+    private IUserLoginService userLoginService;
+
+    @Autowired
+    private IUserLogoutService userLogoutService;
+
 
     @Autowired()
     @Qualifier("commonExecutor")
@@ -65,16 +74,16 @@ public class UserLoginProcessor extends AbstractProcessor<UserLoginDTO> {
             request.setClientType(Short.valueOf(clientType));
 
             // 强制退出
-            //userLogoutService.checkAndForceLogout(subjectType, subjectId, clientType, sessionId);
+            userLogoutService.checkAndForceLogout(subjectType, subjectId, clientType, sessionId);
 
             // 1. 用户登陆
-            // userLoginService.userLogin(request);
+            userLoginService.userLogin(request);
 
             // 2. 写入在线用户表
             SubjectOnline subject = getSubjectOnline(request);
-            //onlineUserService.updateOnlineSubject(subject);
+            userLoginService.updateOnlineSubject(subject);
 
-            // 2. 绑定会话
+            // 3. 绑定会话
             bindSession(subject, context, sessionId);
 
             Session session = OnlineManger.getInstance().getSession(subjectId, subjectType, clientType);
@@ -137,8 +146,7 @@ public class UserLoginProcessor extends AbstractProcessor<UserLoginDTO> {
             subject = (UserSubject) session.getSubject();
         }
 
-        // 广播用户上线事件
-
+        // 推送缓存的消息userLogoutService
         session.processPendingMsgs();
 
     }
@@ -174,19 +182,12 @@ public class UserLoginProcessor extends AbstractProcessor<UserLoginDTO> {
         Long tenantId = request.getTenantId();
         Long customerId = request.getCustomerId();
 
-        Short sosPerm = 0;
-        if (request.getHasSosPerm() != null
-                && request.getHasSosPerm()) {
-            sosPerm = 1;
-        }
-
         SubjectOnline subject = new SubjectOnline();
         subject.setType(CommonConstants.SUBJECT_USER);
         subject.setSubjectId(String.valueOf(request.getUserId()));
         subject.setClientType(request.getClientType());
         subject.setTenantId(tenantId);
         subject.setCustomerId(customerId);
-        subject.setSosPerm(sosPerm);
         return subject;
     }
 }

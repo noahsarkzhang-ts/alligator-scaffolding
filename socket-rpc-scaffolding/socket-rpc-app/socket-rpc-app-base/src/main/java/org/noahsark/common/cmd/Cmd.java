@@ -51,6 +51,16 @@ public class Cmd {
     public static final int CMD_USER_LOGOUT = 105;
 
     /**
+     * 推送GPS信息
+     */
+    public static final int CMD_PUSH_GPS = 502;
+
+    /**
+     * 推送电量信息
+     */
+    public static final int CMD_PUSH_POWER = 503;
+
+    /**
      * 未知命令
      */
     public static final int CMD_UNKNOWN = 10000;
